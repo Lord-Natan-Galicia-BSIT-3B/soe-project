@@ -71,7 +71,8 @@ if (isset($_POST['login'])) {
             <input type="text" name="username" required>
           </label>
           <label>Password
-            <input type="password" name="password" required>
+            <input type="password" name="password" placeholder="Password" required>
+            
           </label>
           <button type="submit" name="login" onclick="showLoading()">Login</button>
         </form>
