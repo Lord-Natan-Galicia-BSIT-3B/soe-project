@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 25, 2025 at 03:29 AM
+-- Generation Time: Feb 25, 2025 at 03:38 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -89,6 +89,13 @@ CREATE TABLE `room_maintenance` (
   `status` enum('Pending','In Progress','Resolved') DEFAULT 'Pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `room_maintenance`
+--
+
+INSERT INTO `room_maintenance` (`maintenance_id`, `room_id`, `issue_description`, `reported_by`, `reported_date`, `status`) VALUES
+(6, 1, 'Air conditioning not working', 1, '2025-02-25 02:34:41', 'Pending');
+
 -- --------------------------------------------------------
 
 --
@@ -101,6 +108,13 @@ CREATE TABLE `room_reports` (
   `action` text NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `room_reports`
+--
+
+INSERT INTO `room_reports` (`report_id`, `user_id`, `action`, `timestamp`) VALUES
+(1, 1, 'Approved room reservation for Room 101', '2025-02-25 02:36:55');
 
 -- --------------------------------------------------------
 
@@ -119,6 +133,13 @@ CREATE TABLE `room_reservations` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `room_reservations`
+--
+
+INSERT INTO `room_reservations` (`reservation_id`, `room_id`, `user_id`, `purpose`, `start_time`, `end_time`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'Physics Lab Experiment', '2024-03-01 09:00:00', '2024-03-01 11:00:00', 'Approved', '2025-02-25 02:38:14', '2025-02-25 02:38:14');
 
 -- --------------------------------------------------------
 
@@ -240,19 +261,19 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT for table `room_maintenance`
 --
 ALTER TABLE `room_maintenance`
-  MODIFY `maintenance_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `maintenance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `room_reports`
 --
 ALTER TABLE `room_reports`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `room_reservations`
 --
 ALTER TABLE `room_reservations`
-  MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `room_status`
