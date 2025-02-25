@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 23, 2025 at 04:10 PM
+-- Generation Time: Feb 25, 2025 at 03:29 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -134,6 +134,13 @@ CREATE TABLE `room_status` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `room_status`
+--
+
+INSERT INTO `room_status` (`status_id`, `room_id`, `status`, `updated_by`, `updated_at`) VALUES
+(12, 1, 'Available', 1, '2025-02-25 02:28:16');
+
 -- --------------------------------------------------------
 
 --
@@ -251,7 +258,7 @@ ALTER TABLE `room_reservations`
 -- AUTO_INCREMENT for table `room_status`
 --
 ALTER TABLE `room_status`
-  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
