@@ -1,14 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Navigation with Modern Logout Confirmation</title>
   <link rel="stylesheet" href="components/navigation/nav.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
 </head>
-
+<body>
   <nav>
     <div class="logo">
       <img src="Images/dyci-logo.png" alt="DYCI Logo">
-      <h1>DYCI Room Track</h1>
+      <h1>DYCI RoomTrack</h1>
     </div>
     <div class="divider"></div>
     <ul>
@@ -30,26 +31,10 @@
       <button class="cancel-btn" id="cancelLogout">Cancel</button>
     </div>
   </div>
+  <div id="spinnerOverlay" class="spinner-overlay">
+    <div class="spinner"></div>
+  </div>
 
-  <script>
-    const logoutLink = document.getElementById('logoutLink');
-    const logoutModal = document.getElementById('logoutModal');
-    const confirmLogout = document.getElementById('confirmLogout');
-    const cancelLogout = document.getElementById('cancelLogout');
-    logoutLink.addEventListener('click', function(e) {
-      e.preventDefault();
-      logoutModal.classList.add('show');
-    });
-    confirmLogout.addEventListener('click', function() {
-      window.location.href = "index.php?page=logout";
-    });
-    cancelLogout.addEventListener('click', function() {
-      logoutModal.classList.remove('show');
-    });
-    window.addEventListener('click', function(e) {
-      if (e.target == logoutModal) {
-        logoutModal.classList.remove('show');
-      }
-    });
-  </script>
-
+  <script src="components/navigation/nav.js"></script>
+</body>
+</html>
