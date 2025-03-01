@@ -1,6 +1,6 @@
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="components/home/room.css">
+  <link rel="stylesheet" href="room.css">
 </head>
 
   <div class="homepage-container">

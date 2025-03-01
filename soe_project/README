@@ -1,0 +1,35 @@
+DYCI-RoomTrack/
+│── assets/
+│   ├── css/
+│   │   ├── style.css       # Main stylesheet
+│   │   ├── dashboard.css   # Dashboard-specific styles
+│   ├── js/
+│   │   ├── script.js       # General JavaScript
+│   │   ├── dashboard.js    # JavaScript for dashboard interactivity
+│   ├── images/             # Store images/icons
+│
+│── includes/
+│   ├── header.php          # Common header section (Navbar, Search, etc.)
+│   ├── sidebar.php         # Sidebar navigation
+│   ├── footer.php          # Footer section
+│   ├── db_config.php       # Database connection file
+│   ├── functions.php       # Reusable PHP functions
+│
+│── pages/
+│   ├── dashboard.php       # Admin dashboard
+│   ├── room_reservation.php # Room reservation page
+│   ├── room_monitoring.php  # Room monitoring page
+│   ├── maintenance.php      # Maintenance page
+│   ├── reports.php         # Reports page
+│   ├── building_mgmt.php    # Building management
+│   ├── user_mgmt.php       # User management
+│
+│── auth/
+│   ├── login.php           # Admin login
+│   ├── logout.php          # Logout functionality
+│   ├── register.php        # Admin registration (if applicable)
+│
+│── index.php               # Main entry file (redirects to dashboard)
+│── config.php              # Configuration settings
+│── .htaccess               # Apache configuration for URL rewriting
+│── README.md               # Project documentation
