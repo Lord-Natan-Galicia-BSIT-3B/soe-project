@@ -8,6 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 
 include 'header.php';
 include 'components/navigation/nav.php';
+include 'components/navigation/topbar/top.php';
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'Home';
 
