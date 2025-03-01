@@ -28,6 +28,7 @@ $roomCounts = [30, 40, 38, 50, 48];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="components/navigation/dashboard/dashboard.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
@@ -37,30 +38,47 @@ $roomCounts = [30, 40, 38, 50, 48];
     </div>
 
     <div class="count-section">
-      <div class="count-item">
+    <div class="count-item">
+    <i class="fas fa-building"></i>
+    <div class="count-text">
         <h3>Total Rooms</h3>
         <p><?php echo $totalRooms; ?></p>
-      </div>
+    </div>
+</div>
 
-      <div class="count-item">
+<div class="count-item">
+    <i class="fas fa-door-open"></i>
+    <div class="count-text">
         <h3>Available</h3>
         <p><?php echo $availableRooms; ?></p>
-      </div>
+    </div>
+</div>
 
-      <div class="count-item">
+<div class="count-item">
+    <i class="fas fa-door-closed"></i>
+    <div class="count-text">
         <h3>Occupied</h3>
         <p><?php echo $occupiedRooms; ?></p>
-      </div>
+    </div>
+</div>
 
-      <div class="count-item">
+<div class="count-item">
+    <i class="fas fa-tools"></i>
+    <div class="count-text">
         <h3>Under Maintenance</h3>
         <p><?php echo $maintenanceRooms; ?></p>
-      </div>
+    </div>
+</div>
 
-      <div class="count-item">
+<div class="count-item">
+    <i class="fas fa-hourglass-half"></i>
+    <div class="count-text">
         <h3>Pending Request</h3>
         <p><?php echo $pendingRequests; ?></p>
-      </div>
+    </div>
+</div>
+
+
     </div>
 
     <div class="chart-container">
