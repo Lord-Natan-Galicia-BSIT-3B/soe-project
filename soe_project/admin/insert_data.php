@@ -11,7 +11,7 @@ if(isset($_POST['add_user'])){
     // Validate input fields
     if(empty($f_name) || empty($user_email) || empty($user_pass)){
         $_SESSION['error'] = "All fields are required.";
-        header("Location: user-management.php");
+        header("Location: .pages/user-management.php");
         exit();
     }
 
@@ -24,7 +24,7 @@ if(isset($_POST['add_user'])){
 
     if(mysqli_stmt_num_rows($stmt) > 0) {
         $_SESSION['error'] = "Email already exists!";
-        header("Location: user-management.php");
+        header("Location: pages/user-management.php");
         exit();
     }
 
@@ -62,7 +62,7 @@ if(isset($_POST['add_user'])){
         $_SESSION['error'] = "Database error: " . mysqli_error($conn);
     }
 
-    header("Location: user-management.php");
+    header("Location: index.php?page=User");
     exit();
 }
 ?>

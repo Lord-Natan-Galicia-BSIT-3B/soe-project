@@ -19,7 +19,7 @@ if(isset($_POST['update_user'])){
             WHERE user_id='$id'";
 
     if (mysqli_query($conn, $sql)) {
-        header("Location: user-management.php?update_msg=User updated successfully");
+        header("Location: index.php?page=User");
         exit();
     } else {
         echo "Error updating user: " . mysqli_error($conn);

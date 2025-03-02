@@ -1,0 +1,183 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+/* Ensure the User Management section is not affected by the sidebar */
+.user-management-container {
+    margin-left: 260px; /* Adjust based on your sidebar width */
+    padding: 20px;
+    transition: margin 0.3s ease-in-out;
+}
+.alert-success{
+    left: 15%;
+    width: 85%;
+    /* top: 0%; */
+    position: relative;
+    top: 20px;
+}
+
+/* Make the table fully visible */
+.table-responsive {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+/* Ensure Pagination is Below the Table */
+.custom-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* Ensure Sidebar Doesn't Affect Pagination */
+.custom-pagination .pagination {
+    margin-bottom: 0;
+    list-style: none;
+    padding: 0;
+}
+
+
+
+/* Ensure responsiveness */
+@media (max-width: 992px) {
+    .user-management-container {
+        margin-left: 0; /* Sidebar might be hidden in mobile */
+        padding: 15px;
+    }
+}
+
+/* Navbar */
+.navbar-custom {
+    background: white;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom Container */
+.container-custom {
+    margin-left: 260px;
+    padding: 20px;
+}
+
+/* Custom Cards */
+.card-custom {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease-in-out;
+}
+
+.card-custom:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Buttons */
+.btn-custom {
+    border-radius: 5px;
+    padding: 8px 12px;
+    transition: 0.3s ease;
+}
+
+.btn-custom:hover {
+    opacity: 0.8;
+}
+
+/* Table */
+.table {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead th {
+    font-weight: 600;
+    background-color: #f5faff !important;
+    text-transform: uppercase;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+/* Search & Filter */
+.search-filter-container {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+}
+
+.search-filter-container input {
+    width: 50%;
+}
+.pagination-container {
+    display: flex;
+    justify-content: center; /* Centers pagination */
+    margin-top: 20px; /* Adds spacing from the table */
+    position: relative;
+    width: 100%;
+}
+/* Pagination */
+.pagination .page-item .page-link {
+    color: #102A43;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #102A43;
+    color: white;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #1E3A5F;
+    color: white;
+}
+
+/* Modals */
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .container-custom {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    .navbar-custom {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+    }
+
+    .search-filter-container {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .search-filter-container input {
+        width: 100%;
+    }
+}
+

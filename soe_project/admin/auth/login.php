@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once '../dbconnection.php';
+require_once '../db_connect.php';
 
 if (isset($_SESSION['user_id'])) {
-    header("Location: ../../index.php");
+    header("Location: ../index.php");
     exit;
 }
 
@@ -35,14 +35,14 @@ if (isset($_POST['login'])) {
   <meta charset="UTF-8">
   <title>MAP</title>
   <link rel="stylesheet" href="login.css">
-  <link rel="shortcut icon" href="Images/dyci-logo.png" type="image/x-icon">
+  <link rel="shortcut icon" href="../assets/images/dyci-logo.png" type="image/x-icon">
  
 </head>
 <body>
   <div class="login-container">
     <div class="login-left-panel">
       <div class="left-content">
-        <img src="../../Images/dyci-logo.png" alt="DYCI Logo">
+        <img src="../assets/images/dyci-logo.png" alt="DYCI Logo">
         <h2>Dr. Yanga&apos;s Colleges Inc.</h2>
       </div>
     </div>
@@ -87,7 +87,7 @@ if (isset($_POST['login'])) {
         document.getElementById('loadingOverlay').style.display = 'none';
         document.getElementById('successModal').style.display = 'flex';
         setTimeout(function() {
-          window.location.href = "../../index.php";
+          window.location.href = '../index.php';
         }, 3000);
       }, 3000);
     <?php endif; ?>

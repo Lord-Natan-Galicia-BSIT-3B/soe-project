@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Topbar Example</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="components/navigation/topbar/top.css">
+  <link rel="stylesheet" href="assets/css/header.css">
 </head>
 <body>
   <nav class="topbar">
@@ -28,7 +28,7 @@
         </button>
       </div>
       <div class="profile-section">
-        <img src="profile.jpg" alt="Profile">
+        <img src="assets/images/dyci-logo.png" alt="Profile">
         <span>Juan Moreno</span>
       </div>
     </div>

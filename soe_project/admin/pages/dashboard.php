@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . '../../db_connect.php';
+require_once __DIR__ . '/../db_connect.php';
+
 
 $totalRoomsQuery = "SELECT COUNT(*) AS total FROM rooms";
 $occupiedRoomsQuery = "SELECT COUNT(*) AS occupied FROM rooms WHERE status = 'Occupied'";

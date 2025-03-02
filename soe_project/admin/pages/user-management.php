@@ -1,6 +1,8 @@
 <?php
-include "../db_connect.php";
+require_once(__DIR__ . '../../db_connect.php');
+
 ?>
+
 
 <?php
 session_start();
@@ -25,47 +27,39 @@ if(isset($_SESSION['success'])) {
     <script src="https://kit.fontawesome.com/234775b3ba.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/user_management.css">
 </head>
 <body>
 
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1 class="text-primary">User Management</h1>
-        <!-- Add User Button -->
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
-            <i class="fas fa-plus"></i> Add User
-        </button>
-    </div>
-
-    <!-- Search & Filter -->
-    <div class="d-flex justify-content-end mb-3" style="width: 100%;">
-        <div class="me-2" style="width: 50%;">
-            <input type="text" class="form-control" placeholder="Search Room" aria-label="Search Room">
+<div class="user-management-container">
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="text-primary">User Management</h1>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                <i class="fas fa-plus"></i> Add User
+            </button>
         </div>
-        <button class="btn btn-secondary">
-            <i class="fas fa-filter"></i> Filter
-        </button>
-    </div>
 
-    <div class="table-responsive">
-    <table class="table table-bordered">
-    <thead class="table-light">
-        <tr>
-            <th>User ID</th>
-            <th>Name</th>
-            <th>User Role</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>Date Registered</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    <?php
-    $limit = 5; // Number of records per page
-    $page = isset($_GET['page']) ? $_GET['page'] : 1;
-    $offset = ($page - 1) * $limit;
+        <!-- Table and Pagination -->
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="table-light">
+                    <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>User Role</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Date Registered</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+    $limit = 5;
+    $page = isset($_GET['page']) ? max((int) $_GET['page'], 1) : 1; // Ensure page is at least 1
+    $offset = max(($page - 1) * $limit, 0); // Prevent negative offset
+    
 
     // Fetch total records
     $total_query = "SELECT COUNT(*) AS total FROM users";
@@ -77,6 +71,7 @@ if(isset($_SESSION['success'])) {
     // Apply pagination with LIMIT and OFFSET
     $query = "SELECT * FROM users ORDER BY user_id DESC LIMIT $limit OFFSET $offset";
     $result = mysqli_query($conn, $query);
+    
 
     if ($result->num_rows > 0) {    
         while ($row = $result->fetch_assoc()) {
@@ -109,12 +104,14 @@ if(isset($_SESSION['success'])) {
         echo "<tr><td colspan='7' class='text-center'>No users found</td></tr>";
     }
     ?>
-    </tbody>
-</table>
+                </tbody>
+            </table>
+        </div>
 
-<!-- Pagination -->
-<nav>
-    <ul class="pagination justify-content-center">
+        <!-- Ensure Pagination is Outside Sidebar -->
+        <!-- Pagination (Outside Sidebar) -->
+<div class="custom-pagination">
+    <ul class="pagination">
         <?php if ($page > 1): ?>
             <li class="page-item">
                 <a class="page-link" href="?page=<?= $page - 1; ?>">Previous</a>
@@ -133,11 +130,11 @@ if(isset($_SESSION['success'])) {
             </li>
         <?php endif; ?>
     </ul>
-</nav>
-
+</div>
 
     </div>
 </div>
+
 
 
 <!-- Add User Modal -->
@@ -155,7 +152,7 @@ if(isset($_SESSION['success'])) {
                         <select class="form-select" name="user_role" required>
                             <option value="" disabled selected>Select role</option>
                             <option value="Student">Student</option>
-                            <option value="Professor">Professor</option>
+                            <option value="Faculty">Faculty</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -203,7 +200,7 @@ if(isset($_SESSION['success'])) {
                         <label class="form-label">User Role</label>
                         <select class="form-select" name="user_role" id="edit_user_role" required>
                             <option value="Student">Student</option>
-                            <option value="Professor">Professor</option>
+                            <option value="Faculty">Faculty</option>
                         </select>
                     </div>
                     <div class="mb-3">
