@@ -37,6 +37,49 @@ h1{
     overflow: hidden;
     font-size: 14px;
 }
+.alert {
+    top: 23px;
+    width: 100%;
+    max-width: 85%;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    position: relative;
+    left: 229px;
+}
+
+/* For tablets and smaller screens */
+@media (max-width: 1024px) {
+    .alert {
+        left: 180px; /* Reduce left spacing */
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .alert {
+        left: 50%; /* Center align */
+        transform: translateX(-50%);
+        max-width: 95%;
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .alert {
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 98%;
+        font-size: 12px;
+        padding: 6px;
+    }
+}
+
 
 .table thead th {
     font-weight: 600;

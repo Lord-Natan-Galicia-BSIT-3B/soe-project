@@ -10,8 +10,10 @@ include 'components/sidebar_header.php';
 include 'components/sidebar.php';
 include 'components/header.php';
 
-$page = isset($_GET['page']) ? $_GET['page'] : 'Home';
+// Ensure page variable is valid
+$page = isset($_GET['page']) && !empty($_GET['page']) ? ucfirst(strtolower($_GET['page'])) : 'Dashboard';
 
+// Handle different pages
 switch ($page) {
     case 'Dashboard':
         include "pages/dashboard.php";
@@ -31,13 +33,13 @@ switch ($page) {
     case 'User':
         include "pages/user-management.php";
         break;
-    case 'logout':
+    case 'Logout':
         session_destroy();
         header("Location: auth/login.php");
         exit;
-        break;
     default:
         include "pages/dashboard.php";
         break;
 }
+
 ?>

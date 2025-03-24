@@ -57,8 +57,8 @@ if(isset($_SESSION['success'])) {
                 <tbody>
                 <?php
     $limit = 5;
-    $page = isset($_GET['page']) ? max((int) $_GET['page'], 1) : 1; // Ensure page is at least 1
-    $offset = max(($page - 1) * $limit, 0); // Prevent negative offset
+    $pagenum = isset($_GET['pagenum']) ? max((int) $_GET['pagenum'], 1) : 1;
+    $offset = ($pagenum - 1) * $limit;
     
 
     // Fetch total records
@@ -110,27 +110,29 @@ if(isset($_SESSION['success'])) {
 
         <!-- Ensure Pagination is Outside Sidebar -->
         <!-- Pagination (Outside Sidebar) -->
-<div class="custom-pagination">
-    <ul class="pagination">
-        <?php if ($page > 1): ?>
+        <div class="custom-pagination">
+    <ul class="pagination justify-content-center">
+        <?php if ($pagenum > 1): ?>
             <li class="page-item">
-                <a class="page-link" href="?page=<?= $page - 1; ?>">Previous</a>
+                <a class="page-link" href="?page=User&pagenum=<?= $pagenum - 1; ?>">Previous</a>
             </li>
         <?php endif; ?>
 
         <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-            <li class="page-item <?= ($page == $i) ? 'active' : ''; ?>">
-                <a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a>
+            <li class="page-item <?= ($pagenum == $i) ? 'active' : ''; ?>">
+                <a class="page-link" href="?page=User&pagenum=<?= $i; ?>"><?= $i; ?></a>
             </li>
         <?php endfor; ?>
 
-        <?php if ($page < $total_pages): ?>
+        <?php if ($pagenum < $total_pages): ?>
             <li class="page-item">
-                <a class="page-link" href="?page=<?= $page + 1; ?>">Next</a>
+                <a class="page-link" href="?page=User&pagenum=<?= $pagenum + 1; ?>">Next</a>
             </li>
         <?php endif; ?>
     </ul>
 </div>
+
+
 
     </div>
 </div>
