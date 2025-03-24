@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Arial", sans-serif;
+  }
+  
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Ensure the table container fits well */
+.pages-management-container {
+    margin-left: 260px;
+    padding: 25px;
+    transition: margin 0.3s ease-in-out;
+}
+ol, ul {
+    padding-left: 0 !important;
+}
+h1{
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 0;
+    line-height: 0;
+}
+
+.table {
+    width: 100%;
+    table-layout: fixed;
+    word-wrap: break-word;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+.table thead th {
+    font-weight: 600;
+    background-color: #f5faff !important;
+    text-transform: uppercase;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.table tbody td {
+    font-size: 13px;
+    padding: 8px;
+}
+
+/* Reduce action button sizes */
+.action-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.action-buttons .btn {
+    padding: 5px 8px;
+    font-size: 12px;
+}
+
+/* Make pagination smaller */
+.pagination .page-item .page-link {
+    font-size: 12px;
+    padding: 5px 10px;
+}
+
+/* Ensure responsiveness */
+@media (max-width: 1200px) {
+    .user-management-container {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    .table {
+        font-size: 12px;
+    }
+
+    .table thead th {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .table tbody td {
+        font-size: 11px;
+        padding: 6px;
+    }
+
+    .action-buttons .btn {
+        padding: 4px 6px;
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .table {
+        font-size: 11px;
+    }
+
+    .table thead th {
+        font-size: 11px;
+    }
+
+    .table tbody td {
+        font-size: 10px;
+        padding: 5px;
+    }
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .action-buttons .btn {
+        width: 100%;
+        font-size: 5px;
+        padding: 3px 5px;
+    }
+}
+button.btn.btn-outline-secondary.edit-btn  {
+    font-size: 12px; /* Adjust as needed */
+}
+button.btn.btn-danger.delete-btn  {
+    font-size: 12px; /* Adjust as needed */
+}
+@media (max-width: 768px) {
+    button.btn.btn-outline-secondary.edit-btn {
+        font-size: 10px;
+    }
+    button.btn.btn-danger.delete-btn  {
+        font-size: 10px; 
+    }
+}
+/* Reduce width of the "Actions" column */
+.table th:last-child, .table td:last-child {
+    width: 105px; /* Adjust as needed */
+    text-align: center; /* Center content */
+}
+
+/* Center action buttons inside their cell */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+}
+
+/* Adjust button size */
+.action-buttons .btn {
+    width: 30px; /* Make buttons smaller */
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px; /* Adjust icon size */
+    padding: 4px;
+}
+
+/* Ensure smaller buttons on smaller screens */
+@media (max-width: 768px) {
+    .table th:last-child, .table td:last-child {
+        width: 60px;
+    }
+
+    .action-buttons .btn {
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+        padding: 3px;
+    }
+}

@@ -27,11 +27,11 @@ if(isset($_SESSION['success'])) {
     <script src="https://kit.fontawesome.com/234775b3ba.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <link rel="stylesheet" href="assets/css/user_management.css">
+    <link rel="stylesheet" href="assets/css/Pages.css">
 </head>
 <body>
 
-<div class="user-management-container">
+<div class="pages-management-container">
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h1 class="text-primary">User Management</h1>
