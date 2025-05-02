@@ -7,7 +7,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/234775b3ba.js" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="assets/css/Pages.css">
     <style>
+        body{
+                margin-left: 260px;
+    padding: 25px;
+    transition: margin 0.3s ease-in-out;
+        }
         .room-card {
             border-radius: 10px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);

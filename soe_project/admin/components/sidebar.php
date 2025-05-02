@@ -15,7 +15,7 @@
     <ul>
       <li><a href="index.php?page=Dashboard"><i class="fa-solid fa-house"></i> Dashboard</a></li>
       <li><a href="index.php?page=Reservation"><i class="fa-solid fa-calendar-check"></i> Room Reservation</a></li>
-      <li><a href="index.php?page=Monitoring"><i class="fa-solid fa-door-open"></i> Room Monitoring</a></li>
+      <li><a href="index.php?page=Monitoring"><i class="fa-solid fa-door-open"></i > Room Monitoring</a></li>
       <li><a href="index.php?page=Maintenance"><i  class="fa-solid fa-wrench"></i> Maintenance</a></li>
       <li><a href="index.php?page=Report"><i class="fa-solid fa-chart-bar"></i> Reports</a></li>
       <li><a href="index.php?page=User"><i class="fa-solid fa-users-cog"></i> User Management</a></li>

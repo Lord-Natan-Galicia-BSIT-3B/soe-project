@@ -10,13 +10,16 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: #f8f9fa;
     color: #333;
+    
 }
-
+.mt-4 {
+    margin-top: 5.5rem !important;
+}
 /* Ensure the table container fits well */
 .pages-management-container {
     margin-left: 260px;
     padding: 25px;
-    transition: margin 0.3s ease-in-out;
+    transition: margin 4.1s ease-in-out;
 }
 ol, ul {
     padding-left: 0 !important;

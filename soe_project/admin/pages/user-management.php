@@ -110,7 +110,7 @@ if(isset($_SESSION['success'])) {
 
         <!-- Ensure Pagination is Outside Sidebar -->
         <!-- Pagination (Outside Sidebar) -->
-        <div class="custom-pagination">
+ <div class="custom-pagination">
     <ul class="pagination justify-content-center">
         <?php if ($pagenum > 1): ?>
             <li class="page-item">
