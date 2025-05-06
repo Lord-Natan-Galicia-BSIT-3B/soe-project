@@ -9,19 +9,14 @@ html, body {
     overflow: hidden;
 }
 
-.container {
-    position: relative;
-    top: 12vh;
-    left: 7.5%;
-    width: 85% !important;
-    scroll-behavior: smooth;
-    height: 88vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+.pages-management-container {
+    margin-left: 260px;
+    padding: 25px;
+    transition: margin 4.1s ease-in-out;
 }
-
+ol, ul {
+    padding-left: 0 !important;
+}
 .container::-webkit-scrollbar {
     display: none;
 }
@@ -32,13 +27,14 @@ html, body {
 }
 
 .btn-print{
-    width: 5%;
+    font-size: 15px;
+    width: 50px;
     border: 1px #808080 solid;
     background-color: #fff;
     border-radius: 4px;
     padding: 8px 4px;
-    position: absolute;
-    right: 12px;
+    position: relative;
+    right: 6px;
 }
 .btn-print i{
     text-align: center;

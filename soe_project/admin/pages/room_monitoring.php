@@ -1,3 +1,8 @@
+<?php
+require_once(__DIR__ . '../../db_connect.php');
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,26 +71,42 @@
         </div>
         
         <div class="row">
-            <?php for ($i = 0; $i < 6; $i++): ?>
-            <div class="col-md-6 mb-4">
-                <div class="card room-card">
-                    <button class="edit-button" data-bs-toggle="modal" data-bs-target="#editModal">
-                    <i class='fa-solid fa-pen-to-square'></i>
-                    </button>
-                    <img src="room-image.jpg" alt="Room Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Room 101</h5>
-                        <p class="card-text">Capacity: 30 Students</p>
-                        <p class="card-text">Room Equipment/Specs:</p>
-                        <p><i class="fas fa-map-marker-alt"></i> Location</p>
-                        <p class="status-<?php echo ($i % 2 == 0) ? 'available' : 'occupied'; ?>">
-                            <?php echo ($i % 2 == 0) ? '● Available' : '● Occupied'; ?>
-                        </p>
-                        <a href="#" class="btn btn-primary">Room Schedule</a>
-                    </div>
-                </div>
+        <?php
+$query = "SELECT * FROM rooms";
+$result = mysqli_query($conn, $query);
+
+if ($result && mysqli_num_rows($result) > 0):
+    while ($row = mysqli_fetch_assoc($result)):
+?>
+    <div class="col-md-6 mb-4">
+        <div class="card room-card">
+            <button class="edit-button" data-bs-toggle="modal" data-bs-target="#editModal">
+                <i class='fa-solid fa-pen-to-square'></i>
+            </button>
+            <img src="<?php echo htmlspecialchars($row['RoomImage'] ?? 'default.jpg'); ?>" alt="Room Image">
+            <div class="card-body">
+                <h5 class="card-title"><?php echo htmlspecialchars($row['RoomNumber'] ?? 'Unnamed Room'); ?></h5>
+                <p class="card-text">Capacity: <?php echo $row['RoomCapacity'] ?? '0'; ?> Students</p>
+                <p class="card-text">Room Equipment/Specs: <?php echo htmlspecialchars($row['RoomDescription'] ?? 'N/A'); ?></p>
+                <p><i class="fas fa-map-marker-alt"></i> Building ID: <?php echo htmlspecialchars($row['BuildingID'] ?? 'Unknown'); ?></p>
+                <p class="status-<?php echo strtolower($row['RoomStatus']) ?? 'unknown'; ?>">
+                    ● <?php echo ucfirst($row['RoomStatus'] ?? 'Unknown'); ?>
+                </p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#roomScheduleModal">
+                  Room Schedule
+                </button>
             </div>
-            <?php endfor; ?>
+        </div>
+    </div>
+<?php
+    endwhile;
+else:
+?>
+    <p class="text-center">No rooms found in the database.</p>
+<?php endif; ?>
+
+
+
         </div>
     </div>
 
@@ -123,6 +144,49 @@
         </div>
     </div>
     
+     <!-- Room Schedule Modal START -->
+     <div class="modal fade" id="roomScheduleModal" tabindex="-1" aria-labelledby="roomScheduleLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="roomScheduleLabel">ROOM SCHEDULE</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-center">
+            <img src="your-schedule-image.png" alt="Room Schedule" class="img-fluid mb-3" />
+            <form id="editScheduleForm">
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="professorName" class="form-label">Professor Name</label>
+                  <select class="form-select" id="professorName" name="professorName">
+                    <option selected disabled>Select Professor</option>
+                    <option>Prof. A</option>
+                    <option>Prof. B</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="subjectPurpose" class="form-label">Subject/Purpose</label>
+                  <input type="text" class="form-control" id="subjectPurpose" name="subjectPurpose" placeholder="Type here">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="date" class="form-label">Date</label>
+                  <input type="text" class="form-control" id="date" name="date" placeholder="MM/DD">
+                </div>
+                <div class="col-md-6">
+                  <label for="startTime" class="form-label">Start Time</label>
+                  <input type="time" class="form-control" id="startTime" name="startTime" value="09:00">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Edit Schedule</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Room Schedule Modal END -->
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

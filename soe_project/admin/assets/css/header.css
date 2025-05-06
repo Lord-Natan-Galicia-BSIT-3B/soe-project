@@ -39,6 +39,7 @@
     border-radius: 4px;
     margin-right: 20px;
     overflow: hidden;
+    line-height: 0 !important;
   }
   .search-container input {
     border: none;

@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/maintenance.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/234775b3ba.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container mt-4">
-        <h4 class="text-primary mb-3">View Maintenance</h4>
-        <div class="d-flex align-items-center mb-4">
+    <div class=" pages-management-container mt-5">
+        <h4 class="text-primary mb-3 mt-3">View Maintenance</h4>
+        <div class="d-flex align-items-center mb-4" style="justify-content: space-between;">
             <a href="#" class="text-list">Lists of Reported Requests</a>
             <button class="btn-print"> 
-                <i class="fas fa-print me-2" data-bs-toggle="tooltip" title="Print"></i>
+                <i class="fa fa-print me-2" data-bs-toggle="tooltip" title="Print"></i>
             </button>
         </div>
 

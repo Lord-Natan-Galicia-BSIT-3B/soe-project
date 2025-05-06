@@ -6,13 +6,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = intval($_POST['id']); // Ensure it's an integer to prevent SQL injection
 
         // Use a prepared statement for security
-        $stmt = $conn->prepare("DELETE FROM users WHERE user_id = ?");
+        $stmt = $conn->prepare("DELETE FROM users WHERE UserID = ?");
         $stmt->bind_param("i", $id);
 
         if ($stmt->execute()) {
             // Reorder IDs sequentially after deletion
             $conn->query("SET @count = 0;");
-            $conn->query("UPDATE users SET user_id = @count := @count + 1;");
+            $conn->query("UPDATE users SET UserID = @count := @count + 1;");
             $conn->query("ALTER TABLE users AUTO_INCREMENT = 1;");
             
             echo "User deleted!";
