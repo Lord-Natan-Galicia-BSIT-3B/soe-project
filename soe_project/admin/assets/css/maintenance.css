@@ -1,0 +1,46 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    position: relative;
+    top: 12vh;
+    left: 7.5%;
+    width: 85% !important;
+    scroll-behavior: smooth;
+    height: 88vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.container::-webkit-scrollbar {
+    display: none;
+}
+
+.text-list {
+    color: #152259;
+    text-decoration: none;
+}
+
+.btn-print{
+    width: 5%;
+    border: 1px #808080 solid;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 8px 4px;
+    position: absolute;
+    right: 12px;
+}
+.btn-print i{
+    text-align: center;
+    color: #152259;
+}
