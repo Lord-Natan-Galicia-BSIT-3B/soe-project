@@ -1,0 +1,46 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+html, body {
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.pages-management-container {
+    margin-left: 260px;
+    padding: 25px;
+    transition: margin 4.1s ease-in-out;
+}
+ol, ul {
+    padding-left: 0 !important;
+}
+.container::-webkit-scrollbar {
+    display: none;
+}
+
+.text-list {
+    color: #152259;
+    text-decoration: none;
+}
+
+.btn-print{
+    font-size: 15px;
+    width: 50px;
+    border: 1px #808080 solid;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 8px 4px;
+    position: relative;
+    right: 6px;
+}
+.btn-print i{
+    text-align: center;
+    color: #152259;
+}
