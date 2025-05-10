@@ -178,7 +178,39 @@
     </div>
 
     <div class="tab-pane fade" id="room-usage">
-        <p>Room Usage Report content here.</p>
+    <table class="table">
+            <thead>
+                <tr>
+                    <th class="checkbox-cell"></th>
+                    <th>Room Name</th>
+                    <th>Time and Date</th>
+                    <th>Reserved By</th>
+                    <th>Purpose Of Use</th>
+                    <th>Frequency Of Use</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $reports = [
+                    ["date" => "11/05/2024", "room" => "SANDBOX", "report" => "Air conditioning failure in Room EDTECH LAB", "resolved" => "12/13/2024 at 11:00 am"],
+                    ["date" => "11/05/2024", "room" => "SANDBOX", "report" => "Water leakage in Room SANDBOX", "resolved" => "12/13/2024 at 11:00 am"],
+                    ["date" => "11/05/2024", "room" => "SANDBOX", "report" => "Water leakage in Room SANDBOX", "resolved" => "12/13/2024 at 11:00 am"],
+                    ["date" => "11/05/2024", "room" => "SANDBOX", "report" => "Water leakage in Room SANDBOX", "resolved" => "12/13/2024 at 11:00 am"]
+                ];
+
+                foreach ($reports as $report) {
+                    echo "<tr>
+                        <td><input type='checkbox'></td>
+                        <td>{$report['date']}</td>
+                        <td>{$report['room']}</td>
+                        <td>{$report['report']}</td>
+                        <td>{$report['resolved']}</td>
+                        <td>{$report['date']}</td>
+                    </tr>";
+                }
+                ?>
+            </tbody>
+        </table>
     </div>
 
     <div class="tab-pane fade" id="reservation-report">

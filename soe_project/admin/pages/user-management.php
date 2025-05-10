@@ -22,7 +22,6 @@ if(isset($_SESSION['success'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Management</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/234775b3ba.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -221,6 +220,13 @@ if(isset($_SESSION['success'])) {
                         <label class="form-label">Email</label>
                         <input type="email" class="form-control" name="email" id="edit_email" required>
                     </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" id="password" class="form-control" name="password" placeholder="Enter password" required>
+                        <input type="checkbox" onclick="togglePassword()"> Show Password
+                    </div>
+
                     <div class="mb-3">
                         <label class="form-label">Contact Number</label>
                         <input type="tel" class="form-control" name="contact_info" id="edit_contact_info" placeholder="Enter phone number" required>

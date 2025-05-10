@@ -1,6 +1,14 @@
 <?php
 require_once(__DIR__ . '../../db_connect.php');
+require_once(__DIR__ . '../../filter_functions.php');
 
+
+$status = $_GET['status'] ?? null;
+$search = $_GET['search'] ?? null;
+$building = $_GET['building'] ?? null;
+
+$counts = getRoomCounts($conn);
+$rooms = getFilteredRooms($conn, $status, $search, $building);
 ?>
 
 <!DOCTYPE html>
@@ -8,109 +16,22 @@ require_once(__DIR__ . '../../db_connect.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Room Management</title>
+    <link rel="stylesheet" href="../assets/css/management.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/234775b3ba.js" crossorigin="anonymous"></script>
-    
     <link rel="stylesheet" href="assets/css/Pages.css">
     <style>
-        body{
-                margin-left: 260px;
-    padding: 25px;
-    transition: margin 0.3s ease-in-out;
-        }
-        .room-card {
-            border-radius: 10px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            position: relative;
-        }
-        .room-card img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-        }
-        .status-available {
-            color: green;
-        }
-        .status-occupied {
-            color: purple;
-        }
-        .edit-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            color: #6c757d;
-            font-size: 1.2rem;
-        }
+        body { margin-left: 260px; padding: 25px; }
+        .room-card { border-radius: 10px; box-shadow: 0px 4px 6px rgba(0,0,0,0.1); overflow: hidden; position: relative; }
+        .room-card img { width: 100%; height: 250px; object-fit: cover; }
+        .status-available { color: green; }
+        .status-occupied { color: purple; }
+        .edit-button { position: absolute; top: 10px; right: 10px; background: none; border: none; color: #6c757d; font-size: 1.2rem; }
     </style>
 </head>
 <body>
-    <div class="container mt-4">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-            <ul class="nav nav-pills">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">All Rooms (496)</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Available Rooms (293)</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Reserved Rooms (62)</a>
-                </li>
-            </ul>
-            <div class="d-flex">
-                <input type="text" class="form-control form-control-sm me-2" placeholder="Search Room" aria-label="Search Room">
-                <button class="btn btn-secondary btn-sm">
-                    <i class="fas fa-filter"></i> Filter
-                </button>
-            </div>
-        </div>
-        
-        <div class="row">
-        <?php
-$query = "SELECT * FROM rooms";
-$result = mysqli_query($conn, $query);
-
-if ($result && mysqli_num_rows($result) > 0):
-    while ($row = mysqli_fetch_assoc($result)):
-?>
-    <div class="col-md-6 mb-4">
-        <div class="card room-card">
-            <button class="edit-button" data-bs-toggle="modal" data-bs-target="#editModal">
-                <i class='fa-solid fa-pen-to-square'></i>
-            </button>
-            <img src="<?php echo htmlspecialchars($row['RoomImage'] ?? 'default.jpg'); ?>" alt="Room Image">
-            <div class="card-body">
-                <h5 class="card-title"><?php echo htmlspecialchars($row['RoomNumber'] ?? 'Unnamed Room'); ?></h5>
-                <p class="card-text">Capacity: <?php echo $row['RoomCapacity'] ?? '0'; ?> Students</p>
-                <p class="card-text">Room Equipment/Specs: <?php echo htmlspecialchars($row['RoomDescription'] ?? 'N/A'); ?></p>
-                <p><i class="fas fa-map-marker-alt"></i> Building ID: <?php echo htmlspecialchars($row['BuildingID'] ?? 'Unknown'); ?></p>
-                <p class="status-<?php echo strtolower($row['RoomStatus']) ?? 'unknown'; ?>">
-                    ● <?php echo ucfirst($row['RoomStatus'] ?? 'Unknown'); ?>
-                </p>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#roomScheduleModal">
-                  Room Schedule
-                </button>
-            </div>
-        </div>
-    </div>
-<?php
-    endwhile;
-else:
-?>
-    <p class="text-center">No rooms found in the database.</p>
-<?php endif; ?>
-
-
-
-        </div>
-    </div>
-
-    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header bg-light">
@@ -143,9 +64,8 @@ else:
             </div>
         </div>
     </div>
-    
-     <!-- Room Schedule Modal START -->
-     <div class="modal fade" id="roomScheduleModal" tabindex="-1" aria-labelledby="roomScheduleLabel" aria-hidden="true">
+  <!-- Room Schedule Modal START -->
+  <div class="modal fade" id="roomScheduleModal" tabindex="-1" aria-labelledby="roomScheduleLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -186,6 +106,71 @@ else:
       </div>
     </div>
     <!-- Room Schedule Modal END -->
+
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link <?= !isset($_GET['status']) ? 'active' : '' ?>" href="?page=Monitoring">All Rooms (<?= $counts['total'] ?>)</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?= (isset($_GET['status']) && $_GET['status'] === 'Available') ? 'active' : '' ?>" href="?page=Monitoring&status=Available">Available Rooms (<?= $counts['available'] ?>)</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?= (isset($_GET['status']) && $_GET['status'] === 'Reserved') ? 'active' : '' ?>" href="?page=Monitoring&status=Reserved">Reserved Rooms (<?= $counts['reserved'] ?>)</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?= (isset($_GET['status']) && $_GET['status'] === 'Under Maintenance') ? 'active' : '' ?>" href="?page=Monitoring&status=Under Maintenance">Under Maintenance (<?= $counts['under_maintenance'] ?>)</a>
+                </li>
+            </ul>
+
+            <form method="get" class="d-flex">
+                <input type="hidden" name="page" value="Monitoring">
+                <?php if ($status): ?>
+                    <input type="hidden" name="status" value="<?= htmlspecialchars($status) ?>">
+                <?php endif; ?>
+                <input type="text" name="search" class="form-control form-control-sm me-2" placeholder="Search Room" value="<?= htmlspecialchars($search) ?>">
+                <select name="building" class="form-select form-select-sm me-2">
+                    <option value="">All Buildings</option>
+                    <option value="A" <?= ($building === 'A') ? 'selected' : '' ?>>Building A</option>
+                    <option value="B" <?= ($building === 'B') ? 'selected' : '' ?>>Building B</option>
+                    <option value="C" <?= ($building === 'C') ? 'selected' : '' ?>>Building C</option>
+                </select>
+                <button class="btn btn-secondary btn-sm" type="submit">
+                    <i class="fas fa-filter"></i> Filter
+                </button>
+            </form>
+        </div>
+
+        <div class="row">
+        <?php if ($rooms && $rooms->num_rows > 0): ?>
+            <?php while ($row = $rooms->fetch_assoc()): ?>
+            <div class="col-md-6 mb-4">
+                <div class="card room-card">
+                    <button class="edit-button" data-bs-toggle="modal" data-bs-target="#editModal">
+                        <i class='fa-solid fa-pen-to-square'></i>
+                    </button>
+                    <img src="<?= htmlspecialchars($row['RoomImage'] ?? 'default.jpg') ?>" alt="Room Image">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= htmlspecialchars($row['RoomNumber'] ?? 'Unnamed Room') ?></h5>
+                        <p class="card-text">Capacity: <?= $row['RoomCapacity'] ?? '0' ?> Students</p>
+                        <p class="card-text">Room Equipment/Specs: <?= htmlspecialchars($row['RoomDescription'] ?? 'N/A') ?></p>
+                        <p><i class="fas fa-map-marker-alt"></i> Building ID: <?= htmlspecialchars($row['BuildingID'] ?? 'Unknown') ?></p>
+                        <p class="status-<?= strtolower($row['RoomStatus']) ?? 'unknown' ?>">
+                            ● <?= ucfirst($row['RoomStatus'] ?? 'Unknown') ?>
+                        </p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#roomScheduleModal">
+                            Room Schedule
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <p class="text-center">No rooms found.</p>
+        <?php endif; ?>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -10,10 +10,10 @@ include 'components/sidebar_header.php';
 include 'components/sidebar.php';
 include 'components/header.php';
 
-// Ensure page variable is valid
 $page = isset($_GET['page']) && !empty($_GET['page']) ? ucfirst(strtolower($_GET['page'])) : 'Dashboard';
+$status = isset($_GET['status']) && !empty($_GET['status']) ? $_GET['status'] : null;
+$tab = isset($_GET['tab']) && !empty($_GET['tab']) ? $_GET['tab'] : 'requests';
 
-// Handle different pages
 switch ($page) {
     case 'Dashboard':
         include "pages/dashboard.php";
@@ -41,5 +41,4 @@ switch ($page) {
         include "pages/dashboard.php";
         break;
 }
-
 ?>

@@ -1,8 +1,23 @@
+<?php
+require_once(__DIR__ . '/../db_connect.php');
+
+$userName = 'Guest';
+
+if (isset($_SESSION['user_id'])) {
+    $stmt = $conn->prepare("SELECT Name FROM Users WHERE UserID = ?");
+    $stmt->bind_param('i', $_SESSION['user_id']);
+    $stmt->execute();
+    $stmt->bind_result($name);
+    if ($stmt->fetch()) {
+        $userName = $name;
+    }
+    $stmt->close();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Topbar Example</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="assets/css/header.css">
 </head>
@@ -29,7 +44,7 @@
       </div>
       <div class="profile-section">
         <img src="assets/images/dyci-logo.png" alt="Profile">
-        <span>Juan Moreno</span>
+        <span><?= htmlspecialchars($userName) ?></span>
       </div>
     </div>
   </nav>

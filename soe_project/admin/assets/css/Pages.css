@@ -12,7 +12,15 @@ body {
     color: #333;
     
 }
+html, body {
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
 
+::-webkit-scrollbar {
+    display: none;
+}
 .mt-4 {
     margin-top: 5.5rem !important;
 }
@@ -181,7 +189,7 @@ button.btn.btn-danger.delete-btn  {
 }
 /* Reduce width of the "Actions" column */
 .table th:last-child, .table td:last-child {
-    width: 105px; /* Adjust as needed */
+    width: 210px; /* Adjust as needed */
     text-align: center; /* Center content */
 }
 

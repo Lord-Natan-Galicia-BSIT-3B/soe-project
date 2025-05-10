@@ -3,10 +3,14 @@
     margin: 0;
     box-sizing: border-box;
 }
-
 html, body {
-    height: 100vh;
-    overflow: hidden;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 .pages-management-container {

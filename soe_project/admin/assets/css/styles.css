@@ -4,6 +4,15 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: #f8f9fa;
 }
+html, body {
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
 .table-light{
     --bs-table-bg: #f5faff !important;
 }

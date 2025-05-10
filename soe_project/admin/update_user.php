@@ -7,6 +7,7 @@ if(isset($_POST['update_user'])){
     $user_role = mysqli_real_escape_string($conn, $_POST['user_role']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $contact_info = mysqli_real_escape_string($conn, $_POST['contact_info']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']); // This is the password field
     if(empty($full_name) || empty($user_role) || empty($email)) {
         die("All fields are required.");
     }
@@ -16,7 +17,8 @@ if(isset($_POST['update_user'])){
             SET Name='$full_name', 
                 Email='$email',
                 Role='$user_role', 
-                ContactInfo='$contact_info'
+                ContactInfo='$contact_info',
+                Password='$password'
 
             WHERE UserID='$id'";
 

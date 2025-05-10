@@ -1,6 +1,6 @@
 <?php
-include "db_connect.php"; // Include database connection
-session_start(); // Start session to store messages
+include "db_connect.php";
+session_start();
 
 if(isset($_POST['add_user'])){
     $user_role = trim($_POST['user_role']);
@@ -9,15 +9,12 @@ if(isset($_POST['add_user'])){
     $user_pass = trim($_POST['password']);
     $contact_info = trim($_POST['contact_info']);
 
-
-    // Validate input fields
     if(empty($f_name) || empty($user_email) || empty($user_pass)){
         $_SESSION['error'] = "All fields are required.";
         header("Location: .pages/user-management.php");
         exit();
     }
 
-    // Check if email already exists
     $check_email_query = "SELECT Email FROM users WHERE Email = ?";
     $stmt = mysqli_prepare($conn, $check_email_query);
     mysqli_stmt_bind_param($stmt, "s", $user_email);
@@ -32,29 +29,19 @@ if(isset($_POST['add_user'])){
 
     mysqli_stmt_close($stmt);
 
-    // Hash the password securely
-    $hashedPassword = password_hash($user_pass, PASSWORD_BCRYPT);
-
-    // Insert user into the database
-    $insert_query = "INSERT INTO users (Name, Email, Password, Role, ContactInfo ) VALUES (?, ?, ?, ?, ?)";
+    $insert_query = "INSERT INTO users (Name, Email, Password, Role, ContactInfo) VALUES (?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($conn, $insert_query);
     
     if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "sssss", $f_name, $user_email, $hashedPassword, $user_role, $contact_info);
+        mysqli_stmt_bind_param($stmt, "sssss", $f_name, $user_email, $user_pass, $user_role, $contact_info);
         if(mysqli_stmt_execute($stmt)){
             $_SESSION['success'] = "User added successfully!";
-
-            // Reset IDs to be sequential
             $conn->query("SET @count = 0;");
             $conn->query("UPDATE users SET UserID = @count := @count + 1 ORDER BY UserID;");
-
-            // Get the highest user_id
             $max_id_query = "SELECT MAX(UserID) AS max_id FROM users";
             $max_id_result = mysqli_query($conn, $max_id_query);
             $max_id_row = mysqli_fetch_assoc($max_id_result);
             $next_id = $max_id_row['max_id'] + 1;
-
-            // Set AUTO_INCREMENT correctly
             $conn->query("ALTER TABLE users AUTO_INCREMENT = $next_id");
         } else {
             $_SESSION['error'] = "Error adding user: " . mysqli_error($conn);

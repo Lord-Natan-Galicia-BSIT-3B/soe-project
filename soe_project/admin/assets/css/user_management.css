@@ -7,6 +7,15 @@ body {
     background-color: #f8f9fa;
     color: #333;
 }
+html, body {
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
 /* Ensure the User Management section is not affected by the sidebar */
 .user-management-container {
     margin-left: 260px; /* Adjust based on your sidebar width */
