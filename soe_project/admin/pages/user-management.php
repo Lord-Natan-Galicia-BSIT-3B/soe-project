@@ -74,32 +74,35 @@ if(isset($_SESSION['success'])) {
 
     if ($result->num_rows > 0) {    
         while ($row = $result->fetch_assoc()) {
-            echo "
-            <tr>
-                <td>{$row['UserID']}</td>
-                <td>{$row['Name']}</td>
-                <td>{$row['Role']}</td>
-                <td>{$row['Email']}</td>
-                <td>{$row['ContactInfo']}</td>   
-                <td>{$row['Password']}</td>  
-                
-                <td>
-                    <button class='btn btn-outline-secondary edit-btn' 
-                        data-id='{$row['UserID']}' 
-                        data-name='{$row['Name']}'
-                        data-role='{$row['Role']}' 
-                        data-email='{$row['Email']}'  
-                        data-contactinfo ='{$row['ContactInfo']}'
-                        data-bs-toggle='modal' data-bs-target='#editUserModal'>
-                        <i class='fa-solid fa-pen-to-square'></i>
-                    </button>
-            
-                    <button class='btn btn-danger delete-btn' data-id='{$row['UserID']}'>
-                        <i class='fa-solid fa-trash-can'></i>
-                    </button>
-        
-                </td> 
-            </tr>";
+            echo <<<HTML
+<tr>
+    <td>{$row['UserID']}</td>
+    <td>{$row['Name']}</td>
+    <td>{$row['Role']}</td>
+    <td>{$row['Email']}</td>
+    <td>{$row['ContactInfo']}</td>   
+    <td>{$row['Password']}</td>  
+    <td>
+        <button class="btn btn-outline-secondary edit-btn" 
+            data-id="{$row['UserID']}" 
+            data-name="{$row['Name']}"
+            data-role="{$row['Role']}" 
+            data-email="{$row['Email']}"  
+            data-contactinfo="{$row['ContactInfo']}"
+            data-bs-toggle="modal" data-bs-target="#editUserModal">
+            <i class="fa-solid fa-pen-to-square"></i>
+        </button>
+        <form method="post" action="./user/delete_user.php" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this user?');">
+    <input type="hidden" name="id" value="{$row['UserID']}">
+    <button type="submit" class="btn btn-danger">
+        <i class="fa-solid fa-trash-can"></i>
+    </button>
+</form>
+
+    </td> 
+</tr>
+HTML;
+
         }
     } else {
         echo "<tr><td colspan='7' class='text-center'>No users found</td></tr>";
@@ -141,7 +144,7 @@ if(isset($_SESSION['success'])) {
 
 
 <!-- Add User Modal -->
-<form action="insert_data.php" method="post">
+<form action="./user/insert_data.php" method="post">
     <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -192,7 +195,7 @@ if(isset($_SESSION['success'])) {
 
 <!-- Update User Modal -->
  <!-- Update User Modal -->
- <form action="update_user.php" method="post">
+ <form action="./user/update_user.php" method="post">
     <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -221,11 +224,6 @@ if(isset($_SESSION['success'])) {
                         <input type="email" class="form-control" name="email" id="edit_email" required>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Password</label>
-                        <input type="password" id="password" class="form-control" name="password" placeholder="Enter password" required>
-                        <input type="checkbox" onclick="togglePassword()"> Show Password
-                    </div>
 
                     <div class="mb-3">
                         <label class="form-label">Contact Number</label>

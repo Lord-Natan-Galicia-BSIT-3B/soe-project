@@ -19,7 +19,7 @@ switch ($page) {
         include "pages/dashboard.php";
         break;
     case 'Reservation':
-        include "pages/reservation.php";
+        include "pages/room_reservation.php";
         break;
     case 'Monitoring':
         include "pages/room_monitoring.php";
