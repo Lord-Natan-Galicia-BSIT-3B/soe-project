@@ -145,97 +145,102 @@ require_once(__DIR__ . '../../db_connect.php');
   </div>
 
   <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="reservationModalLabel">Add Reservation</h5>
-          <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
-            <i class="fa fa-times"></i>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form method="post" action="add_reservation.php">
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="roomName" class="form-label">Room Name</label>
-                <select class="form-select" id="roomName" name="room_id" required>
-                  <option disabled selected>Select Room</option>
-                  <?php
-                  $rooms = $conn->query("SELECT RoomID, RoomNumber FROM Rooms WHERE RoomStatus = 'Available' ORDER BY RoomNumber ASC");
-
-                  while ($room = $rooms->fetch_assoc()) {
-                    echo "<option value='{$room['RoomID']}'>{$room['RoomNumber']}</option>";
-                  }
-                  ?>
-                </select>
-              </div>
-              <div class="col-md-6">
-                <label for="department" class="form-label">Department</label>
-                <select class="form-select" id="department" name="department" required>
-                  <option disabled selected>Select Department</option>
-                  <option value="Engineering">Engineering</option>
-                  <option value="Education">Education</option>
-                  <option value="Business">Business</option>
-                  <option value="IT">IT</option>
-                </select>
-              </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reservationModalLabel">Add Reservation</h5>
+        <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="add_reservation.php">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="roomName" class="form-label">Room Name</label>
+              <select class="form-select" id="roomName" name="room_id" required>
+                <option disabled selected>Select Room</option>
+                <?php
+                $rooms = $conn->query("SELECT RoomID, RoomNumber, RoomCapacity, RoomStatus, BuildingID FROM Rooms WHERE RoomStatus = 'Available' ORDER BY RoomNumber ASC");
+                while ($room = $rooms->fetch_assoc()) {
+                  $roomData = htmlspecialchars(json_encode([
+                    'capacity' => $room['RoomCapacity'],
+                    'status' => $room['RoomStatus'],
+                    'floor' => $room['BuildingID']
+                  ]), ENT_QUOTES, 'UTF-8');
+                  echo "<option value='{$room['RoomID']}' data-info='{$roomData}'>{$room['RoomNumber']}</option>";
+                }
+                ?>
+              </select>
             </div>
-
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="roomType" class="form-label">Room Type</label>
-                <select class="form-select" id="roomType" name="room_type" required>
-                  <option disabled selected>Select Type</option>
-                  <option value="Lecture">Lecture Room</option>
-                  <option value="Lab">Laboratory</option>
-                  <option value="Conference">Conference Room</option>
-                </select>
-              </div>
-              <div class="col-md-6">
-                <label for="floor" class="form-label">Floor</label>
-                <select class="form-select" id="floor" name="floor" required>
-                  <option disabled selected>Select Floor</option>
-                  <option value="1">1st Floor</option>
-                  <option value="2">2nd Floor</option>
-                  <option value="3">3rd Floor</option>
-                </select>
-              </div>
+            <div class="col-md-6">
+              <label for="department" class="form-label">Department</label>
+              <select class="form-select" id="department" name="department" required>
+                <option disabled selected>Select Department</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Education">Education</option>
+                <option value="Business">Business</option>
+                <option value="IT">IT</option>
+              </select>
             </div>
+          </div>
 
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="status" class="form-label">Status</label>
-                <select class="form-select" id="status" name="status" required>
-                  <option value="Available">Available</option>
-                  <option value="Occupied">Occupied</option>
-                  <option value="Under Maintenance">Under Maintenance</option>
-                </select>
-              </div>
-              <div class="col-md-6">
-                <label for="capacity" class="form-label">Capacity</label>
-                <input type="number" class="form-control" id="capacity" name="capacity" min="1" required>
-              </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="roomType" class="form-label">Room Type</label>
+              <select class="form-select" id="roomType" name="room_type" required>
+                <option disabled selected>Select Type</option>
+                <option value="Lecture">Lecture Room</option>
+                <option value="Lab">Laboratory</option>
+                <option value="Conference">Conference Room</option>
+              </select>
             </div>
+            <div class="col-md-6">
+              <label for="floor" class="form-label">Floor</label>
+              <select class="form-select" id="floor" name="floor" required>
+                <option disabled selected>Select Floor</option>
+                <option value="1">1st Floor</option>
+                <option value="2">2nd Floor</option>
+                <option value="3">3rd Floor</option>
+              </select>
+            </div>
+          </div>
 
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="start_time" class="form-label">Start Time</label>
-                <input type="datetime-local" class="form-control" id="start_time" name="start_time" required>
-              </div>
-              <div class="col-md-6">
-                <label for="end_time" class="form-label">End Time</label>
-                <input type="datetime-local" class="form-control" id="end_time" name="end_time" required>
-              </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="status" class="form-label">Status</label>
+              <select class="form-select" id="status" name="status" required>
+                <option value="Available">Available</option>
+                <option value="Occupied">Occupied</option>
+                <option value="Under Maintenance">Under Maintenance</option>
+              </select>
             </div>
+            <div class="col-md-6">
+              <label for="capacity" class="form-label">Capacity</label>
+              <input type="number" class="form-control" id="capacity" name="capacity" min="1" required>
+            </div>
+          </div>
 
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">Save Reservation</button>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="start_time" class="form-label">Start Time</label>
+              <input type="datetime-local" class="form-control" id="start_time" name="start_time" required>
             </div>
-          </form>
-        </div>
+            <div class="col-md-6">
+              <label for="end_time" class="form-label">End Time</label>
+              <input type="datetime-local" class="form-control" id="end_time" name="end_time" required>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save Reservation</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
+</div>
+
 <!-- Edit Reservation Modal -->
 <div class="modal fade" id="editReservationModal" tabindex="-1" aria-labelledby="editReservationModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -288,6 +293,18 @@ require_once(__DIR__ . '../../db_connect.php');
     </div>
   </div>
 </div>
+<script>
+  document.getElementById('roomName').addEventListener('change', function () {
+    const selectedOption = this.options[this.selectedIndex];
+    const roomInfo = JSON.parse(selectedOption.getAttribute('data-info'));
+
+    if (roomInfo) {
+      document.getElementById('capacity').value = roomInfo.capacity || '';
+      document.getElementById('status').value = roomInfo.status || '';
+      document.getElementById('floor').value = roomInfo.floor || '';
+    }
+  });
+</script>
 <script>
   $(document).ready(function () {
     $('.edit-btn').on('click', function () {
