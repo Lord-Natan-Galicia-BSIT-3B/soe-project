@@ -1,0 +1,111 @@
+body {
+  background-color: #f1f3f6;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  padding: 20px;
+}
+
+.notification-card {
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.notif-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.notif-body {
+  flex: 1;
+}
+
+.notif-title {
+  font-weight: 600;
+  margin: 0 0 5px;
+  font-size: 15px;
+}
+
+.notif-message {
+  font-size: 14px;
+  margin: 0 0 6px;
+  color: #444;
+}
+
+.notif-time {
+  font-size: 13px;
+  color: #888;
+}
+
+@media (max-width: 576px) {
+  .notification-card {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+.navbar {
+  background-color: #002D62 !important;
+  position: relative;
+  left: 0;
+}
+.navbar .btn-outline-light {
+  border: none;
+}
+
+.offcanvas {
+  background-color: #002D62;
+  width: 50% !important;
+  max-width: 50% !important;
+  color: white;
+}
+.offcanvas-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid white;
+}
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.profile-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.offcanvas-body ul li a {
+  text-decoration: none;
+  display: block;
+  padding: 10px 0;
+  color: white;
+  font-size: 16px;
+}
+.offcanvas-body ul li a:hover {
+  text-decoration: underline;
+}
+
+.nav-tabs .nav-link {
+  color: #002D62;
+  font-weight: bold;
+}
+.nav-tabs .nav-link.active {
+  background-color: #002D62;
+  color: white;
+}
+
+h5 {
+  color: #002D62;
+}

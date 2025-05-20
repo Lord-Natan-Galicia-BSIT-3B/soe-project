@@ -1,0 +1,147 @@
+:root {
+  --navy: #152259;
+  --white: #fff;
+  --purple: #8c5deb;
+  --gray-border: #ccc;
+  --gray-light: #f5f5f5;
+  --gray-text: #636363;
+  --font-main: 'Poppins', Arial, sans-serif;
+}
+
+html, body {
+  background: var(--gray-light);
+  font-family: var(--font-main);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+/* === RESERVATION PAGE WRAPPER === */
+.reservation-main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 34px;
+}
+
+.reservation-container {
+  width: 100%;
+  max-width: 520px;
+  background: var(--white);
+  border-radius: 13px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.09);
+  padding: 24px 30px 38px;
+  margin-bottom: 44px;
+}
+
+/* === NAVBAR === */
+.navbar {
+  background-color: #002D62 !important;
+  position: relative;
+  left: 0;
+}
+
+.navbar .btn-outline-light {
+  border: none;
+}
+
+.offcanvas {
+  background-color: #002D62;
+  width: 48% !important;
+  max-width: 45% !important;
+  color: white;
+}
+
+.offcanvas-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid white;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.offcanvas-body ul li a {
+  text-decoration: none;
+  display: block;
+  padding: 10px 0;
+  color: white;
+  font-size: 16px;
+}
+
+.offcanvas-body ul li a:hover {
+  text-decoration: underline;
+}
+
+/* === RESPONSIVE TABLE === */
+.responsive-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.responsive-table th,
+.responsive-table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+@media (max-width: 768px) {
+  .responsive-table thead {
+    display: none;
+  }
+
+  .responsive-table, .responsive-table tbody, .responsive-table tr, .responsive-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .responsive-table tr {
+    margin-bottom: 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 10px;
+  }
+
+  .responsive-table td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+  }
+
+  .responsive-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 15px;
+    width: 45%;
+    padding-right: 10px;
+    font-weight: bold;
+    text-align: left;
+    color: var(--gray-text);
+  }
+
+  .responsive-table td:last-child {
+    padding-bottom: 20px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .navbar .nav-link {
+    display: none !important;
+  }
+}
