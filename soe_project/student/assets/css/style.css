@@ -1,0 +1,186 @@
+/* Main Content Area */
+.main-content {
+    padding: 1.5rem;
+    background-color: #f8fafc;
+    min-height: 100vh;
+}
+
+/* Search Bar */
+.search-container {
+    width: 250px;
+}
+
+.search-container .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.search-container .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* Notification Bell */
+.dropdown-toggle::after {
+    display: none;
+}
+
+/* Stats Cards */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 1.5rem;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0.5rem;
+}
+
+.card h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0;
+}
+
+.card i {
+    font-size: 2.5rem;
+    opacity: 0.2;
+}
+
+/* Table Styles */
+.table {
+    margin-bottom: 0;
+}
+
+.table thead th {
+    border-top: none;
+    border-bottom: 1px solid #e2e8f0;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    padding: 1rem 1.5rem;
+}
+
+.table tbody td {
+    padding: 1rem 1.5rem;
+    vertical-align: middle;
+    border-color: #f1f5f9;
+}
+
+/* Buttons */
+.btn {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.4rem 0.75rem;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7rem;
+}
+
+/* Badges */
+.badge {
+    padding: 0.35em 0.65em;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .search-container {
+        width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 1rem;
+    }
+    
+    .search-container {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    
+    .card-body {
+        padding: 1.25rem;
+    }
+    
+    .table-responsive {
+        border: none;
+    }
+}
+
+/* Status Badges */
+.badge-available {
+    background-color: #198754;
+}
+
+.badge-occupied {
+    background-color: #dc3545;
+}
+
+.badge-pending {
+    background-color: #ffc107;
+    color: #000;
+}
+
+/* Sidebar */
+.sidebar {
+    min-height: 100vh;
+    background: #2c3e50;
+    padding: 20px 0;
+}
+
+.sidebar .nav-link {
+    color: #ecf0f1;
+    padding: 10px 20px;
+    margin: 5px 0;
+    border-radius: 0;
+}
+
+.sidebar .nav-link:hover, 
+.sidebar .nav-link.active {
+    background: #34495e;
+    color: #3498db;
+}
+
+.sidebar .nav-link i {
+    width: 25px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .search-container {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    
+    .main-content {
+        padding: 10px;
+    }
+}
