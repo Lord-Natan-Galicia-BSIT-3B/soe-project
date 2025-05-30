@@ -22,11 +22,12 @@ if (isset($_POST['login'])) {
     if ($result && $result->num_rows > 0) {
         $user = $result->fetch_assoc();
 
-        if ($password === $user['Password']) {
+        if (password_verify($password, $user['Password'])) {
             if ($user['Role'] === 'Student') {
                 $_SESSION['user_id'] = $user['UserID'];
                 $_SESSION['username'] = $user['Email'];
                 $_SESSION['role'] = $user['Role'];
+                $_SESSION['name'] = $user['Name'];
                 $login_success = true;
             } else {
                 $error = "Access denied. Only Student can log in.";
@@ -157,7 +158,7 @@ if (isset($_POST['login'])) {
     <?php if ($login_success === true): ?>
       setTimeout(function() {
         document.getElementById('loadingOverlay').style.display = 'none';
-        window.location.href = '../index.php';
+        window.location.href = 'index.php';
       }, 3000);
     <?php endif; ?>
   </script>
