@@ -13,7 +13,7 @@ if (session_status() === PHP_SESSION_NONE) {
  * @return bool True if user is logged in, false otherwise
  */
 function isLoggedIn() {
-    return isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
+    return isset($_SESSION['user_id']);
 }
 
 /**
@@ -47,7 +47,7 @@ function getCurrentUser($conn) {
     }
 
     $user_id = getCurrentUserId();
-    $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
+    $stmt = $conn->prepare("SELECT * FROM Users WHERE UserID = ?");
     $stmt->bind_param('i', $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
