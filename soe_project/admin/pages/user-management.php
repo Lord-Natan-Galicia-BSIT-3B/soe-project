@@ -49,11 +49,14 @@ if(isset($_SESSION['success'])) {
                         <th>User Role</th>
                         <th>Email</th>
                         <th>Contact Info</th>
-                        <th>Password</th>
+                        <th>Course</th>
+                        <th>Year Level</th>
+                        <th>Section</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
+           
                 <?php
     $limit = 5;
     $pagenum = isset($_GET['pagenum']) ? max((int) $_GET['pagenum'], 1) : 1;
@@ -74,35 +77,52 @@ if(isset($_SESSION['success'])) {
 
     if ($result->num_rows > 0) {    
         while ($row = $result->fetch_assoc()) {
+            $userID = htmlspecialchars($row['UserID']);
+            $name = htmlspecialchars($row['Name']);
+            $role = htmlspecialchars($row['Role']);
+            $email = htmlspecialchars($row['Email']);
+            $contact = htmlspecialchars($row['ContactInfo']);
+            $course = ($row['Role'] === 'Student') ? htmlspecialchars($row['Course']) : '-';
+            $yearlevel = ($row['Role'] === 'Student') ? htmlspecialchars($row['YearLevel']) : '-';
+            $section = ($row['Role'] === 'Student') ? htmlspecialchars($row['Section']) : '-';
+        
+            // Use raw values for data-* attributes (not the dash for non-students)
+            $data_course = htmlspecialchars($row['Course']);
+            $data_yearlevel = htmlspecialchars($row['YearLevel']);
+            $data_section = htmlspecialchars($row['Section']);
+        
             echo <<<HTML
-<tr>
-    <td>{$row['UserID']}</td>
-    <td>{$row['Name']}</td>
-    <td>{$row['Role']}</td>
-    <td>{$row['Email']}</td>
-    <td>{$row['ContactInfo']}</td>   
-    <td>{$row['Password']}</td>  
-    <td>
-        <button class="btn btn-outline-secondary edit-btn" 
-            data-id="{$row['UserID']}" 
-            data-name="{$row['Name']}"
-            data-role="{$row['Role']}" 
-            data-email="{$row['Email']}"  
-            data-contactinfo="{$row['ContactInfo']}"
-            data-bs-toggle="modal" data-bs-target="#editUserModal">
-            <i class="fa-solid fa-pen-to-square"></i>
-        </button>
-        <form method="post" action="./user/delete_user.php" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this user?');">
-    <input type="hidden" name="id" value="{$row['UserID']}">
-    <button type="submit" class="btn btn-danger">
-        <i class="fa-solid fa-trash-can"></i>
-    </button>
-</form>
-
-    </td> 
-</tr>
-HTML;
-
+        <tr>
+            <td>$userID</td>
+            <td>$name</td>
+            <td>$role</td>
+            <td>$email</td>
+            <td>$contact</td>
+            <td>$course</td>
+            <td>$yearlevel</td>
+            <td>$section</td>
+            <td>
+                <button class="btn btn-outline-secondary edit-btn" 
+                    data-id="$userID"
+                    data-name="$name"
+                    data-role="$role"
+                    data-email="$email"
+                    data-contactinfo="$contact"
+                    data-course="$data_course"
+                    data-yearlevel="$data_yearlevel"
+                    data-section="$data_section"
+                    data-bs-toggle="modal" data-bs-target="#editUserModal">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <form method="post" action="./user/delete_user.php" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                    <input type="hidden" name="id" value="$userID">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        HTML;
         }
     } else {
         echo "<tr><td colspan='7' class='text-center'>No users found</td></tr>";
@@ -155,12 +175,40 @@ HTML;
                 <div class="modal-body">
                     <div class="mb-3">
                         <label class="form-label">User Role</label>
-                        <select class="form-select" name="user_role" required>
+                        <select class="form-select" name="role" id="add_user_role" onchange="toggleStudentFieldsAdd()" required>
                             <option value="" disabled selected>Select role</option>
                             <option value="Student">Student</option>
                             <option value="Professor">Professor</option>
                             <option value="Maintenance">Maintenance</option>
                         </select>
+                        <div id="add_studentFields" style="display:none;">
+    <label class="form-label mb-2">Student Details</label>
+    <select name="course" id="add_course" class="form-select mb-2" required>
+        <option value="" disabled selected>Select Course</option>
+        <option value="BSIT">BSIT</option>
+        <option value="BSED">BSED</option>
+        <option value="BEED">BEED</option>
+        <option value="BSBA">BSBA</option>
+        <option value="BSA">BSA</option>
+        <option value="BSCE">BSCE</option>
+    </select>
+    <select name="yearlevel" id="add_yearlevel" class="form-select mb-2" required>
+        <option value="" disabled selected>Select Year Level</option>
+        <option value="1">1st Year</option>
+        <option value="2">2nd Year</option>
+        <option value="3">3rd Year</option>
+        <option value="4">4th Year</option>
+    </select>
+    <select name="section" id="add_section" class="form-select mb-2" required>
+        <option value="" disabled selected>Select Section</option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+    </select>
+</div>
+                        
+                        
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Full Name</label>
@@ -209,11 +257,39 @@ HTML;
 
                     <div class="mb-3">
                         <label class="form-label">User Role</label>
-                        <select class="form-select" name="user_role" id="edit_user_role" required>
-                            <option value="Student">Student</option>
-                            <option value="Professor">Professor</option>
-                            <option value="Maintenance">Maintenance</option>
-                        </select>
+                        <select class="form-select" name="user_role" id="edit_user_role" onchange="toggleStudentFieldsEdit()" required>
+    <option value="Student">Student</option>
+    <option value="Professor">Professor</option>
+    <option value="Maintenance">Maintenance</option>
+</select>
+<div id="edit_studentFields" style="display:none;">
+    <label class="form-label mb-2">Student Details</label>
+    <select name="course" id="edit_course" class="form-select mb-2" required>
+        <option value="" disabled>Select Course</option>
+        <option value="BSIT">BSIT</option>
+        <option value="BSED">BSED</option>
+        <option value="BEED">BEED</option>
+        <option value="BSBA">BSBA</option>
+        <option value="BSA">BSA</option>
+        <option value="BSCE">BSCE</option>
+    </select>
+    <select name="yearlevel" id="edit_yearlevel" class="form-select mb-2" required>
+        <option value="" disabled>Select Year Level</option>
+        <option value="1">1st Year</option>
+        <option value="2">2nd Year</option>
+        <option value="3">3rd Year</option>
+        <option value="4">4th Year</option>
+    </select>
+    <select name="section" id="edit_section" class="form-select mb-2" required>
+        <option value="" disabled>Select Section</option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+    </select>
+</div>
+
+                      
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Full Name</label>
@@ -246,6 +322,38 @@ HTML;
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/script.js"></script>
 
+
+
+<script>
+    //add
+    function toggleStudentFieldsAdd() {
+    var role = document.getElementById('add_user_role').value;
+    document.getElementById('add_studentFields').style.display = (role === 'Student') ? 'block' : 'none';
+}
+document.addEventListener("DOMContentLoaded", function() {
+    toggleStudentFieldsAdd();
+    document.getElementById('add_user_role').addEventListener('change', toggleStudentFieldsAdd);
+});
+
+//edit
+function toggleStudentFieldsEdit() {
+    var role = document.getElementById('edit_user_role').value;
+    document.getElementById('edit_studentFields').style.display = (role === 'Student') ? 'block' : 'none';
+}
+document.addEventListener("DOMContentLoaded", function() {
+    toggleStudentFieldsEdit();
+    document.getElementById('edit_user_role').addEventListener('change', toggleStudentFieldsEdit);
+
+    document.getElementById("edit_course").value = this.getAttribute("data-course") || '';
+document.getElementById("edit_yearlevel").value = this.getAttribute("data-yearlevel") || '';
+document.getElementById("edit_section").value = this.getAttribute("data-section") || '';
+toggleStudentFieldsEdit(); // Show/hide fields based on role
+});
+
+document.getElementById("edit_course").value = this.getAttribute("data-course") || '';
+document.getElementById("edit_yearlevel").value = this.getAttribute("data-yearlevel") || '';
+document.getElementById("edit_section").value = this.getAttribute("data-section") || '';
+</script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const editButtons = document.querySelectorAll(".edit-btn");

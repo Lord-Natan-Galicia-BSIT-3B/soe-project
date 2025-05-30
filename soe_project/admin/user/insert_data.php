@@ -3,14 +3,29 @@ include "../db_connect.php";
 session_start();
 
 if(isset($_POST['add_user'])){
-    $user_role = trim($_POST['user_role']);
+    $user_role = trim($_POST['role']);
+    $course = ($role === 'Student') ? $_POST['course'] : null;
     $f_name = trim($_POST['full_name']);
     $user_email = trim($_POST['email']);
     $user_pass = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
     $contact_info = trim($_POST['contact_info']);
 
+    if ($user_role === 'Student') {
+        $course = trim($_POST['course']);
+        $yearlevel = trim($_POST['yearlevel']);
+        $section = trim($_POST['section']);
+    } else {
+        $course = null;
+        $yearlevel = null;
+        $section = null;
+    }
     if(empty($f_name) || empty($user_email) || empty($user_pass)){
         $_SESSION['error'] = "All fields are required.";
+        header("Location: ../pages/user-management.php");
+        exit();
+    }
+    if ($user_role === 'Student' && (empty($course) || empty($yearlevel) || empty($section))) {
+        $_SESSION['error'] = "All student fields are required!";
         header("Location: ../pages/user-management.php");
         exit();
     }
@@ -29,11 +44,11 @@ if(isset($_POST['add_user'])){
 
     mysqli_stmt_close($stmt);
 
-    $insert_query = "INSERT INTO users (Name, Email, Password, Role, ContactInfo) VALUES (?, ?, ?, ?, ?)";
+    $insert_query = "INSERT INTO users (Name, Email, Password, Role, Course, YearLevel, Section, ContactInfo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($conn, $insert_query);
     
     if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "sssss", $f_name, $user_email, $user_pass, $user_role, $contact_info);
+        mysqli_stmt_bind_param($stmt, "ssssssss", $f_name, $user_email, $user_pass, $user_role, $course, $yearlevel, $section, $contact_info);
         if(mysqli_stmt_execute($stmt)){
             $_SESSION['success'] = "User added successfully!";
             $conn->query("SET @count = 0;");
